@@ -1,0 +1,15 @@
+﻿<Window x:Class="Screenshare_using_TCP.StartBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Screenshare_using_TCP"
+        mc:Ignorable="d"
+        Title="StartBox" Height="450" Width="800">
+    <Grid>
+        <Label Content="Send or Receive Screenshare?" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="174" Width="772" FontSize="58"/>
+        <Button x:Name="Send" Content="Send" HorizontalAlignment="Left" Margin="10,189,0,0" VerticalAlignment="Top" Width="255" Height="91" Click="Button_Click" FontSize="60"/>
+        <Button x:Name="Receive" Content="Receive" HorizontalAlignment="Left" Margin="527,189,0,0" VerticalAlignment="Top" Width="255" Height="91" Click="Button_Click" FontSize="60"/>
+
+    </Grid>
+</Window>
