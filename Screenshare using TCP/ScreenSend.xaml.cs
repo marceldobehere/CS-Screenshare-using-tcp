@@ -108,15 +108,16 @@ namespace Screenshare_using_TCP
                         }
                     }
 
-
-                    // Convert the text into bytes
-                    byte[] DataBytes = ASCIIEncoding.ASCII.GetBytes(OriginalText);
-
                     // Compress it
-                    byte[] Compressed = SevenZip.Compression.LZMA.SevenZipHelper.Compress(DataBytes);
+                    data = SevenZip.Compression.LZMA.SevenZipHelper.Compress(data);
 
-                    // Decompress it
-                    byte[] Decompressed = SevenZip.Compression.LZMA.SevenZipHelper.Decompress(Compressed);
+                    {
+                        int number = data.Length;
+                        byte[] bytes = BitConverter.GetBytes(number);
+                        if (BitConverter.IsLittleEndian)
+                            Array.Reverse(bytes);
+                        socket.Send(bytes);
+                    }
 
                     socket.Send(data);
 

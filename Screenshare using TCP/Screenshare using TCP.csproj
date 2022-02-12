@@ -74,11 +74,6 @@
     <Compile Include="7zip\Common\CRC.cs" />
     <Compile Include="7zip\Common\InBuffer.cs" />
     <Compile Include="7zip\Common\OutBuffer.cs" />
-    <Compile Include="7zip\Compress\LzmaAlone\LzmaAlone.cs" />
-    <Compile Include="7zip\Compress\LzmaAlone\LzmaBench.cs" />
-    <Compile Include="7zip\Compress\LzmaAlone\Properties\AssemblyInfo.cs" />
-    <Compile Include="7zip\Compress\LzmaAlone\Properties\Resources.cs" />
-    <Compile Include="7zip\Compress\LzmaAlone\Properties\Settings.cs" />
     <Compile Include="7zip\Compress\LZMA\LzmaBase.cs" />
     <Compile Include="7zip\Compress\LZMA\LzmaDecoder.cs" />
     <Compile Include="7zip\Compress\LZMA\LzmaEncoder.cs" />
@@ -89,6 +84,7 @@
     <Compile Include="7zip\Compress\RangeCoder\RangeCoder.cs" />
     <Compile Include="7zip\Compress\RangeCoder\RangeCoderBit.cs" />
     <Compile Include="7zip\Compress\RangeCoder\RangeCoderBitTree.cs" />
+    <Compile Include="7zip\Compress\SevenZipHelper.cs" />
     <Compile Include="7zip\ICoder.cs" />
     <Compile Include="GetIP.xaml.cs">
       <DependentUpon>GetIP.xaml</DependentUpon>
@@ -149,9 +145,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="7zip\Compress\LzmaAlone\LzmaAlone.sln" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -71,7 +71,7 @@ namespace Screenshare_using_TCP
                     height = BinaryPrimitives.ReadInt32BigEndian(aaa);
                 }
 
-                int size = width * height * 3;
+
 
                 //MessageBox.Show($"Width:{width}\nHeight:{height}\nSize:{size}\n");
 
@@ -79,20 +79,34 @@ namespace Screenshare_using_TCP
 
                 System.Threading.Thread.Sleep(500);
 
-                Bitmap tempimg = new Bitmap(width, height);
+                Bitmap tempimg = new Bitmap (width, height);
 
                 while (true)
                 {
+                    int size;
+                    {
+                        byte[] aaa = new byte[4];
+                        int counter = 0;
+                        while (counter < 4)
+                            counter += socket.Receive(aaa, counter, 4, SocketFlags.None);
+                        size = BinaryPrimitives.ReadInt32BigEndian(aaa);
+                    }
                     byte[] image_arr = new byte[size];
                     {
-                        //MessageBox.Show($"Getting Image Data...");
+                        MessageBox.Show($"Getting Image Data...");
                         int counter = 0;
                         while (counter < size)
                             counter += socket.Receive(image_arr, counter, size, SocketFlags.None);
+
+                        // Decompress it
+                        MessageBox.Show($"Getting Image Data 2...");
+                        image_arr = SevenZip.Compression.LZMA.SevenZipHelper.Decompress(image_arr);
+
+                        MessageBox.Show($"Getting Image Data 3...");
                     }
 
                     {
-                        //MessageBox.Show($"Setting Image...");
+                        MessageBox.Show($"Setting Image...");
                         int index = 0;
                         for (int y = 0; y < height; y++)
                         {
@@ -106,6 +120,9 @@ namespace Screenshare_using_TCP
                                 tempimg.SetPixel(x, y, Color.FromArgb(0, rgb[0], rgb[1], rgb[2]));
                             }
                         }
+                        
+
+                        MessageBox.Show($"Setting Image 2...");
                     }
 
 
