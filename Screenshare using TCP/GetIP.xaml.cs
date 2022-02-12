@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,31 +16,38 @@ using System.Windows.Shapes;
 namespace Screenshare_using_TCP
 {
     /// <summary>
-    /// Interaktionslogik für StartBox.xaml
+    /// Interaktionslogik für Window1.xaml
     /// </summary>
-    public partial class StartBox : Window
+    public partial class GetIP : Window
     {
-        public StartBox()
+        public bool send;
+        public GetIP()
         {
             InitializeComponent();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (((Button)sender).Name.Equals("Send"))
+            if (IPAddress.TryParse(iptext.Text, out IPAddress address))
             {
-                GetIP temp = new GetIP();
-                temp.send = true;
-                temp.Show();
+                if (send)
+                {
+                    ScreenSend window = new ScreenSend(address);
+                    window.Show();
+                }
+                else
+                {
+                    ScreenReceive window = new ScreenReceive(address);
+                    window.Show();
+                }
                 Close();
+
             }
-            else if (((Button)sender).Name.Equals("Receive"))
+            else
             {
-                GetIP temp = new GetIP();
-                temp.send = false;
-                temp.Show();
-                Close();
+                MessageBox.Show("Invalid IP", "bruh");
             }
         }
+
     }
 }
