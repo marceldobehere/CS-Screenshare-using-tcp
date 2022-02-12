@@ -23,6 +23,7 @@ using Color = System.Drawing.Color;
 using MessageBox = System.Windows.MessageBox;
 using PixelFormat = System.Drawing.Imaging.PixelFormat;
 using Rectangle = System.Drawing.Rectangle;
+using SevenZip.Compression.LZMA;
 
 namespace Screenshare_using_TCP
 {
@@ -95,9 +96,10 @@ namespace Screenshare_using_TCP
 
                     byte[] data = new byte[3 * captureBitmap.Height * captureBitmap.Width];
                     int index = 0;
-                    for (int y = 0; y < captureBitmap.Height; y++)
+                    int wi = captureBitmap.Width, he = captureBitmap.Height;
+                    for (int y = 0; y < he; y++)
                     {
-                        for (int x = 0; x < captureBitmap.Width; x++)
+                        for (int x = 0; x < wi; x++)
                         {
                             Color temp = captureBitmap.GetPixel(x, y);
                             data[index] = temp.R; index++;
@@ -105,9 +107,20 @@ namespace Screenshare_using_TCP
                             data[index] = temp.B; index++;
                         }
                     }
+
+
+                    // Convert the text into bytes
+                    byte[] DataBytes = ASCIIEncoding.ASCII.GetBytes(OriginalText);
+
+                    // Compress it
+                    byte[] Compressed = SevenZip.Compression.LZMA.SevenZipHelper.Compress(DataBytes);
+
+                    // Decompress it
+                    byte[] Decompressed = SevenZip.Compression.LZMA.SevenZipHelper.Decompress(Compressed);
+
                     socket.Send(data);
 
-                    System.Threading.Thread.Sleep(100);
+                    System.Threading.Thread.Sleep(50);
                 }
 
             }

@@ -24,6 +24,7 @@ using Color = System.Drawing.Color;
 using MessageBox = System.Windows.MessageBox;
 using PixelFormat = System.Drawing.Imaging.PixelFormat;
 using Rectangle = System.Drawing.Rectangle;
+using SevenZip.Compression.LZMA;
 
 namespace Screenshare_using_TCP
 {
@@ -48,24 +49,7 @@ namespace Screenshare_using_TCP
         private void MainLoop()
         {
             try
-
             {
-
-                //Rectangle captureRectangle = Screen.AllScreens[0].Bounds;
-                //Bitmap captureBitmap = new Bitmap(captureRectangle.Width, captureRectangle.Height, PixelFormat.Format32bppArgb);
-                //Graphics captureGraphics = Graphics.FromImage(captureBitmap);
-
-
-
-                ////captureBitmap.Save(@"Capture.jpg", ImageFormat.Jpeg);
-
-
-                //captureGraphics.CopyFromScreen(captureRectangle.Left, captureRectangle.Top, 0, 0, captureRectangle.Size);
-
-
-                //image.Dispatcher.Invoke(() => image.Source = BitmapToImageSource(captureBitmap));
-                //image.Source = BitmapToImageSource(captureBitmap);
-
                 Socket socket = new Socket(SocketType.Stream, ProtocolType.Tcp);
                 socket.Connect(new IPEndPoint(address, 1234));
 
@@ -125,10 +109,11 @@ namespace Screenshare_using_TCP
                     }
 
 
+
                     //captureGraphics.CopyFromScreen(captureRectangle.Left, captureRectangle.Top, 0, 0, captureRectangle.Size);
                     //MessageBox.Show($"Drawing");
                     image.Dispatcher.Invoke(() => image.Source = BitmapToImageSource(tempimg));
-                    System.Threading.Thread.Sleep(100);
+                    System.Threading.Thread.Sleep(50);
                 }
 
             }
